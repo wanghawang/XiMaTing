@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.wz.ximating.R;
 import com.wz.ximating.adapters.RecommentContentAdapter;
 import com.wz.ximating.base.BaseFragment;
+import com.wz.ximating.interfaces.RecommentCallBack;
+import com.wz.ximating.presenters.RecommentPresenter;
 import com.ximalaya.ting.android.opensdk.constants.DTransferConstants;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
 import com.ximalaya.ting.android.opensdk.datatrasfer.IDataCallBack;
@@ -26,13 +28,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RecommentFragment extends BaseFragment {
+public class RecommentFragment extends BaseFragment implements RecommentCallBack {
 
     private RecommentContentAdapter recommentContentAdapter;
+    private RecommentPresenter recommentPresenter;
 
     @Override
     public View onSubViewCreate(LayoutInflater inflater) {
-        getRecommentData();
         View view = inflater.inflate(R.layout.fragment_recomment,null,false);
         RecyclerView recyclerView = view.findViewById(R.id.recomment_recycleview);
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
@@ -50,32 +52,38 @@ public class RecommentFragment extends BaseFragment {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recommentContentAdapter);
-
-
+        //获取presenter层
+        recommentPresenter = RecommentPresenter.getInstance();
+        //加载数据
+        recommentPresenter.loadData();
+        //注册回调
+        recommentPresenter.regsterCallBack(this);
         return view;
-    }
-
-    public void getRecommentData(){
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put(DTransferConstants.LIKE_COUNT, "20");
-        map.put(DTransferConstants.CATEGORY_ID,"0");
-        CommonRequest.getGuessLikeAlbum(map, new IDataCallBack<GussLikeAlbumList>() {
-            @Override
-            public void onSuccess(@Nullable GussLikeAlbumList gussLikeAlbumList) {
-                Log.d("RecommentFragment",gussLikeAlbumList.getAlbumList().size() + "");
-
-                upDateRecommendUI(gussLikeAlbumList.getAlbumList());
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                Log.d("RecommentFragment",s);
-            }
-        });
     }
 
     private void upDateRecommendUI(List<Album>albumList) {
         recommentContentAdapter.setData(albumList);
+    }
+
+    @Override
+    public void loadDataCallBack(List<Album> albumList) {
+        upDateRecommendUI(albumList);
+    }
+
+    @Override
+    public void loadMoreDataCallBack(List<Album> albumList) {
+
+    }
+
+    @Override
+    public void refreshDataCallBack(List<Album> albumList) {
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        recommentPresenter.cancelRegsterCallBack(this);
+
     }
 }
