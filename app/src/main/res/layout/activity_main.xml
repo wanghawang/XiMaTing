@@ -5,15 +5,31 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <net.lucode.hackware.magicindicator.MagicIndicator
-        android:id="@+id/magic_indicator"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="40dp"/>
-
+        android:layout_height="40dp">
+        <net.lucode.hackware.magicindicator.MagicIndicator
+            android:background="@color/main_color"
+            android:id="@+id/magic_indicator"
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <RelativeLayout
+            android:background="@color/main_color"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@mipmap/check_icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp" />
+        </RelativeLayout>
+    </LinearLayout>
     <androidx.viewpager.widget.ViewPager
+        android:overScrollMode="never"
+        android:id="@+id/indicator_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-
-
 </LinearLayout>
