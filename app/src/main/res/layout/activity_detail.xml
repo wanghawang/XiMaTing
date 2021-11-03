@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/purple_700"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <ImageView
+       android:scaleType="fitXY"
+       android:id="@+id/album_detail_header_bg_imageV"
+       android:background="#333333"
+       android:layout_width="match_parent"
+       android:layout_height="150dp"/>
+
+    <View
+        android:layout_below="@+id/album_detail_header_bg_imageV"
+        android:id="@+id/album_detail_line1"
+        android:background="#666666"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <RelativeLayout
+        android:id="@+id/album_detail_header_bottom"
+        android:layout_below="@+id/album_detail_line1"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/shape_subscription_bg"
+            android:text="+ 订阅"
+            android:layout_width="70dp"
+            android:layout_height="30dp"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_below="@+id/album_detail_header_bottom"
+        android:id="@+id/album_detail_line2"
+        android:background="#666666"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/album_detail_header_icon_imageV"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="-40dp"
+        android:layout_below="@+id/album_detail_header_bg_imageV"
+        android:background="#999999"
+        android:layout_width="75dp"
+        android:layout_height="75dp"/>
+
+    <TextView
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/album_detail_header_title_tv"
+        android:lines="1"
+        android:layout_toRightOf="@+id/album_detail_header_icon_imageV"
+        android:layout_alignTop="@+id/album_detail_header_icon_imageV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:textSize="14sp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/album_detail_header_content_tv"
+        android:lines="1"
+        android:layout_toRightOf="@+id/album_detail_header_icon_imageV"
+        android:layout_alignBottom="@+id/album_detail_header_icon_imageV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/album_detail_header_bottom2"
+        android:layout_below="@+id/album_detail_line2"
+        android:background="#EEEEEE"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        
+        <ImageView
+            android:id="@+id/album_detail_header_play_imageV"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/vip_playall_ic"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+
+        <TextView
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/album_detail_header_play_imageV"
+            android:layout_centerVertical="true"
+            android:text="继续播放"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:layout_marginRight="10dp"
+            android:id="@+id/album_detail_header_xuanji_imageV"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_down"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+
+        <TextView
+            android:layout_toLeftOf= "@id/album_detail_header_xuanji_imageV"
+            android:layout_marginLeft="8dp"
+            android:layout_centerVertical="true"
+            android:text="选集"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_below="@+id/album_detail_header_bottom2"
+        android:id="@+id/album_detail_line3"
+        android:background="#666666"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:background="#eeeeee"
+        android:overScrollMode="never"
+        android:id="@+id/album_detail_recycle_view"
+        android:layout_below="@+id/album_detail_line3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</RelativeLayout>

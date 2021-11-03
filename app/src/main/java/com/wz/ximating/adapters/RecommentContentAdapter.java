@@ -1,5 +1,6 @@
 package com.wz.ximating.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import java.util.zip.Inflater;
 
 public class RecommentContentAdapter extends RecyclerView.Adapter<RecommentContentAdapter.InnerHolder> {
     private List<Album> mAlbums = new ArrayList<>();
+    private ItemClickListener itemClickListener;
 
     @NonNull
     @Override
@@ -32,6 +34,15 @@ public class RecommentContentAdapter extends RecyclerView.Adapter<RecommentConte
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
         holder.itemView.setTag(position);
         holder.setData(mAlbums.get(position));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("onBindViewHolder","" + view.getTag());
+                if (itemClickListener != null){
+                    itemClickListener.itemClick((int)view.getTag(),mAlbums.get(position));
+                }
+            }
+        });
     }
 
     @Override
@@ -66,5 +77,13 @@ public class RecommentContentAdapter extends RecyclerView.Adapter<RecommentConte
             contentTv.setText(album.getAlbumIntro());
             Picasso.with(itemView.getContext()).load(album.getCoverUrlLarge()).into(iconV);
         }
+    }
+
+    public void setOnItemClickListener(ItemClickListener listener){
+        itemClickListener = listener;
+    }
+
+    public interface ItemClickListener{
+        void itemClick(int index,Album album);
     }
 }

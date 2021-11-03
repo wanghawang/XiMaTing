@@ -1,5 +1,6 @@
 package com.wz.ximating.fragments;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,10 +12,12 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.wz.ximating.DetailActivity;
 import com.wz.ximating.R;
 import com.wz.ximating.adapters.RecommentContentAdapter;
 import com.wz.ximating.base.BaseFragment;
 import com.wz.ximating.interfaces.RecommentCallBack;
+import com.wz.ximating.presenters.AlbumDetailPresenter;
 import com.wz.ximating.presenters.RecommentPresenter;
 import com.ximalaya.ting.android.opensdk.constants.DTransferConstants;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
@@ -49,7 +52,14 @@ public class RecommentFragment extends BaseFragment implements RecommentCallBack
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recommentContentAdapter = new RecommentContentAdapter();
-
+        recommentContentAdapter.setOnItemClickListener(new RecommentContentAdapter.ItemClickListener() {
+            @Override
+            public void itemClick(int index,Album album) {
+                AlbumDetailPresenter.getInstance().setAlbum(album);
+                Intent intent = new Intent(getContext(), DetailActivity.class);
+                startActivity(intent);
+            }
+        });
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recommentContentAdapter);
         //获取presenter层
